@@ -1,6 +1,6 @@
 import { Stack } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import { AcceleratorEnvironmentProps } from '../const/environment';
+import { EnvironmentProps } from '../const/environment';
 import { createAwsResourceName, createCdkId } from '../utils/resource-naming-service';
 import { LambdaFunction } from '../constructs/lambda-function';
 import { HttpApi } from '../constructs/http-api';
@@ -16,7 +16,7 @@ export class HttpApiStack extends Stack {
   constructor( scope: Construct, id: string, props: HttpApiStackProps ) {
     super(
       scope,
-      createCdkId( props.environment.stageId, id, true ),
+      createCdkId( props.environment.stageId, id ),
       {
         stackName: props.stackName,
         description: props.description,
@@ -29,11 +29,11 @@ export class HttpApiStack extends Stack {
      */
     const listColorsLambdaFunction =  new LambdaFunction(
       this,
-      createCdkId( props.environment.stageId, 'ColorsLambda' ),
+      createCdkId( props.environment.stageId, 'HelloWorldLambda' ),
       {
         environment: props.environment,
-        lambdaHandlerFilePath: '../code/handlers/colors.ts',
-        lambdaFunctionName: createAwsResourceName( props.environment.stageId, 'list-colors' ),
+        lambdaHandlerFilePath: '../code/handlers/helloWorld.ts',
+        lambdaFunctionName: createAwsResourceName( props.environment.stageId, 'get-hello-world' ),
       },
     );
 
@@ -42,15 +42,15 @@ export class HttpApiStack extends Stack {
      */
     new HttpApi(
       this,
-      createCdkId( props.environment.stageId, 'ColorsHttpApi' ),
+      createCdkId( props.environment.stageId, 'NomadHairApi' ),
       {
         environment: props.environment,
-        httpApiName: createAwsResourceName( props.environment.stageId, 'colors' ),
+        httpApiName: createAwsResourceName( props.environment.stageId, 'nomadHair' ),
         lambdaIntegrations: [
           {
-            integrationId: createCdkId( props.environment.stageId, 'ColorsEndpointIntegration' ),
-            routeId: createCdkId( props.environment.stageId, 'ColorsEndpointRoute' ),
-            route: 'GET /colors',
+            integrationId: createCdkId( props.environment.stageId, 'NomadHairEndpointIntegration' ),
+            routeId: createCdkId( props.environment.stageId, 'CNomadHairEndpointRoute' ),
+            route: 'GET /helloWorld',
             lambda: listColorsLambdaFunction,
           },
         ],
@@ -73,7 +73,7 @@ export interface HttpApiStackProps {
    */
   description: string,
   /**
-   * The accelerator environment
+   * The CDK environment
    */
-  environment: AcceleratorEnvironmentProps
+  environment: EnvironmentProps
 }

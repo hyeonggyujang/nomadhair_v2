@@ -3,7 +3,7 @@ import { Environment } from 'aws-cdk-lib';
 /**
  * A basic environment which denotes the target AWS account for deploying accelerator resources via CDK.
  */
-export const ACCELERATOR_ENV: AcceleratorEnvironmentProps = {
+export const CDK_ENV: EnvironmentProps = {
   stageId: 'dev',
   name: 'nomad_hair_v2',
   cdkEnvironment: {
@@ -15,19 +15,19 @@ export const ACCELERATOR_ENV: AcceleratorEnvironmentProps = {
 /**
  * A development environment which denotes the target AWS account for deploying accelerator resources via CDK.
  */
-// export const ACCELERATOR_ENV_DEV: AcceleratorEnvironmentProps = {
-//   stageId: 'dev',
-//   name: 'nomad_hair_v2',
-//   cdkEnvironment: {
-//     account: '649588711656',
-//     region: 'us-east-1',
-//   },
-// };
+export const CDK_ENV_DEV: EnvironmentProps = {
+  stageId: 'dev',
+  name: 'nomad_hair_v2',
+  cdkEnvironment: {
+    account: '649588711656',
+    region: 'us-east-1',
+  },
+};
 
 /**
- * Configurable properties for CDK accelerator environments.
+ * Configurable properties for CDK environments.
  */
-export interface AcceleratorEnvironmentProps {
+export interface EnvironmentProps {
   /**
    * The name of the accelerator to be deployed
    */

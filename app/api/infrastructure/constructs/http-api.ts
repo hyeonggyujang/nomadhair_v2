@@ -1,7 +1,7 @@
 import { aws_apigatewayv2 as apigatewayv2 } from 'aws-cdk-lib';
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import { AcceleratorEnvironmentProps } from '../const/environment';
+import { EnvironmentProps } from '../const/environment';
 import { aws_iam as iam } from 'aws-cdk-lib';
 import { LambdaFunction } from './lambda-function';
 import { createCdkId } from '../utils/resource-naming-service';
@@ -96,7 +96,7 @@ export interface HttpApiProps {
     /**
      * The platform environment
      */
-    environment: AcceleratorEnvironmentProps,
+    environment: EnvironmentProps,
   }
 
 /**
