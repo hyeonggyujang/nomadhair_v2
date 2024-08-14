@@ -41,3 +41,5 @@ export interface EnvironmentProps {
    */
   cdkEnvironment: Environment,
 }
+
+export const UIResourcePrefix = "nomad-hair-ui";

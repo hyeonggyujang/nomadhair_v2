@@ -73,3 +73,7 @@ export function convertKebabToPascal( input: string ): string {
 function clearAndUpper( input: string ): string {
   return input.replace( /-/, '' ).toUpperCase();
 }
+
+export const identifyResource = (resourcePrefix:string, resourceId:string)=>{
+  return `${resourcePrefix}-${resourceId}`;
+};

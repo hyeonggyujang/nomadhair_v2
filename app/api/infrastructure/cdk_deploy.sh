@@ -1,6 +1,6 @@
 echo ===================CDK LIST====================== 
-echo The follosing stack is being deployed:
-cdk list
+echo The following stack is being deployed:
+cdk list --profile nomadhair
 echo ===================CDK Bootstrap=================
 cdk bootstrap --profile nomadhair
 echo ===================CDK DEPLOY===================== 

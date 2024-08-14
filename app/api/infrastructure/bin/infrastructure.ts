@@ -3,9 +3,10 @@ import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
 import { InfrastructureStack } from '../lib/infrastructure-stack';
 import { HttpApiStack } from '../lib/http-api-stack';
-import { CDK_ENV } from '../const/environment';
+import { CDK_ENV, UIResourcePrefix } from '../const/environment';
 import { CDK_ENV_DEV } from '../const/environment';
-import { createCdkStackName } from '../utils/resource-naming-service';
+import { createCdkStackName, identifyResource } from '../utils/resource-naming-service';
+import { UIStack } from '../lib/ui-stack';
 
 const app = new cdk.App();
 
@@ -17,21 +18,7 @@ if ( app.node.tryGetContext( 'stageId' ) ) {
   CDK_ENV_DEV.stageId = app.node.tryGetContext( 'stageId' );
 }
 
-new InfrastructureStack(app, 'InfrastructureStack', {
-  /* If you don't specify 'env', this stack will be environment-agnostic.
-   * Account/Region-dependent features and context lookups will not work,
-   * but a single synthesized template can be deployed anywhere. */
-
-  /* Uncomment the next line to specialize this stack for the AWS Account
-   * and Region that are implied by the current CLI configuration. */
-  // env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION },
-
-  /* Uncomment the next line if you know exactly what Account and Region you
-   * want to deploy the stack to. */
-  // env: { account: '123456789012', region: 'us-east-1' },
-
-  /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
-});
+new InfrastructureStack(app, 'InfrastructureStack', {});
 new HttpApiStack(
   app, 
   'HttpApiStack', 
@@ -41,3 +28,23 @@ new HttpApiStack(
     environment: CDK_ENV,
   }
 );
+
+const UI_BUCKET_NAME_OUTPUT_ID = identifyResource(UIResourcePrefix, "ui-host-bucket");
+const UI_DISTRIBUTION_ID_OUTPUT_ID = identifyResource(UIResourcePrefix, "distribution-id");
+new UIStack(
+  app,
+  identifyResource(UIResourcePrefix, "UIStack"),
+  {
+    env: {
+      account: "649588711656",
+      region: "us-east-1",
+    },
+    resourcePrefix: UIResourcePrefix,
+    hostedZoneName: "nomadhair.org",
+    domainName: "reserve.nomadhair.org",
+    includeWWW: false,
+    siteSourcePath: "../../ui/nomad_hair_nextjs/out",
+    staticSiteBucketNameOutputId: UI_BUCKET_NAME_OUTPUT_ID,
+    staticSiteDistributionIdOutputId: UI_DISTRIBUTION_ID_OUTPUT_ID,
+  }
+)
