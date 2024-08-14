@@ -7,6 +7,7 @@ import { CDK_ENV, UIResourcePrefix } from '../const/environment';
 import { CDK_ENV_DEV } from '../const/environment';
 import { createCdkStackName, identifyResource } from '../utils/resource-naming-service';
 import { UIStack } from '../lib/ui-stack';
+import { ACCOUNT_ID } from '../aws_config_secrets';
 
 const app = new cdk.App();
 
@@ -36,7 +37,7 @@ new UIStack(
   identifyResource(UIResourcePrefix, "UIStack"),
   {
     env: {
-      account: "649588711656",
+      account: ACCOUNT_ID,
       region: "us-east-1",
     },
     resourcePrefix: UIResourcePrefix,
