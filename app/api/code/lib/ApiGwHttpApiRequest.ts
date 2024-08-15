@@ -16,21 +16,21 @@ function _tryParse( val ) {
    */
   class ApiGwHttpApiRequestV2 {
     rawEvent: {
-      body: object,
-      cookies: object,
-      headers: object,
-      pathParameters: object,
-      queryStringParameters: object,
-      requestContext: object,
-      stageVariables: object,
+      body: any,
+      cookies: any,
+      headers: any,
+      pathParameters: any,
+      queryStringParameters: any,
+      requestContext: any,
+      stageVariables: any,
     };
-    _body: object;
-    _cookies: object; 
-    _headers: object;
-    _pathParameters: object;
-    _queryStringParameters: object;
-    _requestContext: object;
-    _stageVariables: object;
+    _body: any;
+    _cookies: any; 
+    _headers: any;
+    _pathParameters: any;
+    _queryStringParameters: any;
+    _requestContext: any;
+    _stageVariables: any;
     
 
     /**
