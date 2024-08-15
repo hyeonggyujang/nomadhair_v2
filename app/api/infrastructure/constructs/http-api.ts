@@ -21,7 +21,7 @@ export class HttpApi extends apigatewayv2.CfnApi {
           allowMethods: [ 'GET', 'PUT', 'DELETE', 'OPTIONS' ],
           allowOrigins: [ '*' ],
         },
-      description: 'Colors HTTP API',
+      description: 'NomadHair HTTP API',
       name: props.httpApiName,
       protocolType: 'HTTP',
     } );
@@ -119,4 +119,5 @@ export interface LambdaIntegrationProps {
     * The lambda itself
     */
     readonly lambda: LambdaFunction,
+    readonly requestParameters?: object,
   }
